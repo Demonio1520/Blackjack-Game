@@ -1,4 +1,40 @@
+/* Global */
+
+:root {
+    --black: #000000;
+    --white: #ffffff;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
 body {
-    background-color: #06692c;
+    background-color: #2F4F30;
+    color: var(--white);
     font-size: 1.6rem;
+    margin: 0px;
+}
+
+/* Main-Site */
+/* Site-Header */
+
+.site-header {
+    background-color: var(--black);
+    padding: 2rem 0;
+    text-align: center;
+
+}
+#player-cards, #home-cards {
+    height: 25rem;
+}
+.cards {
+    position: relative;
+    left: 10rem;
+    margin-left: -7rem;
+    padding: 1rem;
+    width: 15rem;
 }
