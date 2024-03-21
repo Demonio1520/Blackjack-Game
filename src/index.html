@@ -16,17 +16,25 @@
 
     <div class = "row mt-2">
         <div class = "col text-center">
-            <button id="btn-new" disabled = 'disabled' class = "btn btn-danger">New Game</button>
-            <button id="btn-get" disabled = 'disabled' class = "btn btn-primary">Get Card</button>
-            <button id="btn-stop" disabled = 'disabled' class = "btn btn-primary">Stop</button>
+            <button id="btn-new" class = "btn btn-danger">New Game</button>
+            <button id="btn-get" class = "btn btn-primary">Get Card</button>
+            <button id="btn-stop" class = "btn btn-primary">Stop</button>
             <button id="btn-start" class = "btn btn-success">Start</button>
         </div>
     </div>
 
-    <div id="players" class="row text-center mt-5">
+    <div id="players" class="row col-12 text-center">
+        <div class="col-4">
+            <h2>You - <span>0</span></h2>
+            <div id="player-cards">
+            </div>
+        </div>
     </div>
 
-    <div id="players" class="row text-center">
+    <div id="players" class="row col-4 text-center">
+        <h2>Dealer - <span>0</span></h2>
+        <div id="player-cards">
+        </div>
     </div>
 
     <script src="assets/js/functions.js"></script>
