@@ -1,0 +1,1 @@
+:root{--black:#000;--white:#fff}html{box-sizing:border-box;font-size:62.5%}*,:after,:before{box-sizing:inherit}body{background-color:#2f4f30;color:var(--white);font-size:1.6rem;margin:0}.site-header{background-color:var(--black);padding:2rem 0;text-align:center}#home-cards,#player-cards{height:25rem}.cards{left:10rem;margin-left:-7rem;padding:1rem;position:relative;width:15rem}
