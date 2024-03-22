@@ -33,8 +33,27 @@ body {
 }
 .cards {
     position: relative;
-    left: 10rem;
+    left: 5rem;
     margin-left: -7rem;
     padding: 1rem;
     width: 15rem;
+}
+@media (min-width:1000px) {
+    .cards {
+        position: relative;
+        left: 10rem;
+        margin-left: -7rem;
+        padding: 1rem;
+        width: 15rem;
+    }
+}
+@media (max-width:1000px) {
+    .col-4 {
+        flex: 0 0 100%;
+    }
+}
+@media (min-width:1001px) {
+    .col-4 {
+        flex: 0 0 50%;
+    }
 }
