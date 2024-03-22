@@ -1,5 +1,5 @@
-import {players,startGame,newCard} from '../index.js'
-let turn = 0;
+import {startGame,newCard, players} from '../index.js';
+import {addPlayer,addCard} from '../index.js';
 
 // Shuffle Arrays
 function shuffle(array) {
@@ -20,11 +20,11 @@ export class Game {
     }
     
     createPlayers = (players) => {
-        const div = document.createElement('div');
-        const newPlayer = `
+        const div = document.createElement('div'),
+        newPlayer = `
         <h2>Player ${players} - <span>0</span></h2>
         <div id="player-cards">
-        </div>`
+        </div>`;
         div.innerHTML = newPlayer;
         div.classList.add('col-4');
         addPlayer.append(div);
@@ -42,7 +42,7 @@ export class Game {
             if (i < players) {
                 newCard.addCard(i), newCard.addCard(i);
             } else {
-                newCard.addCard(i), newCard.addCard(i);
+                newCard.addCard(i), newCard.addCard(i,true);
             }
         }
 
@@ -63,10 +63,9 @@ export class Game {
     }
 
     blackjack = (players,counter) => {
-        for (let i = 0; i < players; i++) {
+        for (let i = 0; i <= players; i++) {
             const blackjack = counter[i][0] + counter[i][1];
-            if (blackjack == 21) {
-                btnGet.disabled = true;
+            if (blackjack === 21) {
                 setTimeout(() => {
                     alert('¡Blackjack!');          
                 }, 1000);
@@ -76,17 +75,16 @@ export class Game {
     }
 
     computerTurn = (turn,points) => {
-        // if (downCard == true) {
-        //     computerFlip();
-        //     downCard = false;
-    while (points[turn] < points[0] && points[0] <= 21 || points[turn] < 17 && points[0] <= 21 || points[turn] < 17 && points[0] > 21) {
-        newCard.addCard(turn);
+        newCard.flipCard(turn);
+        this.blackjack(players,this.counter);
+        while (points[turn] < points[0] && points[0] <= 21 || points[turn] < 17 && points[0] <= 21 || points[turn] < 17 && points[0] > 21) {
+            newCard.addCard(turn);
+        }
     }
-}
 }
 
 export class Card {
-    constructor(players) {
+    constructor() {
         this.createDeck();
     }
 
@@ -128,40 +126,37 @@ export class Card {
         }
     }
 
-    addCard = (turn) => {
+    addCard = (turn,down = false) => {
         let card = this.getCard(), value = this.cardValue(card,turn);
-        startGame.pointsCounter(turn,value);
-        startGame.counter[turn].push(value);
+        if (down == false ) startGame.pointsCounter(turn,value,down);
+        (down == false) ? startGame.counter[turn].push(value) :
+        startGame.counter[turn].push(card);
 
-        console.log(startGame.counter);
-        console.log(startGame.cardCounter(turn));
-
-        this.createCard(card,turn);
+        this.createCard(card,turn,down);
     }
 
-    createCard = (card,turn) => {
+    createCard = (card,turn,down = false) => {
         const img = document.createElement('img');
+
         img.classList.add('cards');
-        img.src = `./assets/img/${card}.png`;
-        img.alt = `Card ${card}`;
+        (down == true) ? img.src = `./assets/img/grey_back.png` : img.src = `./assets/img/${card}.png`;
+        (down == true) ? img.alt = `Card Grey Back` : img.alt = `Card ${card}`;
         addCard[turn].append(img);
+    }
+
+    flipCard = (turn) => {
+        const img = addCard[turn].querySelectorAll('img'),
+        card = startGame.counter[turn][1];
+        startGame.counter[turn].pop();
+        addCard[turn].removeChild(img[1]);
+
+        this.createCard(card,turn);
+        let value = this.cardValue(card,turn);
+        startGame.pointsCounter(turn,value);
+        startGame.counter[turn][1] = value;
     }
 }
 // Create Number Of Players
-
-// // Face Down Card
-// const addDownCards = () => {
-//     downCardValue = getCard();
-
-// }
-
-// HTML Selectors
-const addPlayer = document.querySelector('#players'),
-addCard = document.querySelectorAll('#player-cards'),
-btnStart = document.querySelector('#btn-start'),
-btnGet = document.querySelector('#btn-get'),
-btnStop = document.querySelector('#btn-stop'),
-btnNew = document.querySelector('#btn-new');
 
 // // Start Game
 // let playerNumbers = 3;
@@ -180,52 +175,3 @@ btnNew = document.querySelector('#btn-new');
 //     const flipCard = computerCards.querySelector('img');
 //     flipCard.src = `/img/${downCardValue}.png`;        
 // }
-
-// // Events
-btnNew.disabled = true;
-btnGet.disabled = true;
-btnStop.disabled = true;
-
-// Start Button
-btnStart.addEventListener ('click', () => {
-    btnNew.disabled = false, btnGet.disabled = false,
-    btnStop.disabled = false, btnStart.disabled = true;
-    startGame.startGame(players);
-});
-
-// Get Button
-btnGet.addEventListener('click', () => {
-    newCard.addCard(turn);
-    if (startGame.points[turn] > 21) {
-        const time = setInterval(() => {
-            alert('You\'re over 21');
-            clearInterval(time);
-        }, 500);
-        btnGet.disabled = true;
-        btnStop.disabled = true;
-    }
-});
-
-// Stop Button
-btnStop.addEventListener('click', () => {
-    btnGet.disabled = true;
-    btnStop.disabled = true;
-    turn += 1;
-    do {
-        startGame.computerTurn(turn,startGame.points);
-        turn += 1;
-    } while (turn <= players);
-
-    setTimeout (() => {
-        if (startGame.points[1] >= startGame.points[0] && startGame.points[1] <= 21) {
-            alert('The Dealer Wins.');
-        } else {
-            alert('¡You Win!');
-        }
-    }, 1000);
-});
-
-// New Game Button
-btnNew.addEventListener('click', () => {
-    location.reload();
-});
