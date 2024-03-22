@@ -1,7 +1,7 @@
 {
-  "name": "03-webpack",
+  "name": "Blackjack",
   "version": "1.0.0",
-  "description": "Initial Webpack Proyect",
+  "description": "Card Game Blackjack",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
