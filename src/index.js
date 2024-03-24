@@ -1,3 +1,5 @@
+// Blackjack Game V-2.4
+import './css/normalize.css';
 import './styles.css';
 import {Game,Card} from './js/functions.js';
 

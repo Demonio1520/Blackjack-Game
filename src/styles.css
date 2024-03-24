@@ -3,6 +3,7 @@
 :root {
     --black: #000000;
     --white: #ffffff;
+    --yellow: #dfdb1a;
 }
 
 html {
@@ -16,7 +17,11 @@ body {
     background-color: #2F4F30;
     color: var(--white);
     font-size: 1.6rem;
-    margin: 0px;
+}
+span {
+    color: var(--yellow);
+    font-weight: bold;
+    text-shadow: var(--white);
 }
 
 /* Main-Site */
@@ -24,11 +29,28 @@ body {
 
 .site-header {
     background-color: var(--black);
-    padding: 2rem 0;
+    margin-bottom: 1rem;
+    padding: 1.5rem 0;
     text-align: center;
-
 }
-#player-cards, #home-cards {
+.site-header h1 {
+    margin: 0;
+}
+.container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.cash {
+    border: 2px solid var(--black);
+    display: inline-block;
+    padding: 0 3rem;
+    font-size: 2rem;
+}
+#players {
+    text-transform: uppercase;
+}
+#player-cards {
     height: 25rem;
 }
 .cards {
@@ -38,7 +60,7 @@ body {
     padding: 1rem;
     width: 15rem;
 }
-@media (min-width:1000px) {
+/* @media (min-width:1000px) {
     .cards {
         position: relative;
         left: 10rem;
@@ -56,4 +78,4 @@ body {
     .col-4 {
         flex: 0 0 50%;
     }
-}
+} */
