@@ -1,5 +1,11 @@
-import {startGame,newCard, players} from '../index.js';
+// Let Variables - Const Variables - HTML Selectors
+import {version,players,turn,cash} from '../index.js';
+import {startGame,newCard, backCard} from '../index.js';
 import {addPlayer,addCard} from '../index.js';
+
+// HTML Selectors
+const p = document.querySelectorAll('p'),
+span  = document.querySelectorAll('span');
 
 // Shuffle Arrays
 function shuffle(array) {
@@ -9,18 +15,22 @@ function shuffle(array) {
     }
 }
 
+export function update(version) {
+    p[0].innerText = `V-${version}`;
+}
+
 export class Game {
     constructor(players) {
-        this.points = [];
-        this.counter = [];
-        for(let i = 0; i <= players; i++) {
-            this.points.push(0);
-            this.counter.push([]);
-        }
+        this.newGame(players);
+        this.addCash(cash);
     }
     
+    addCash = (cash) => {
+        span[0].innerText = cash;
+    }
+
     createPlayers = (players) => {
-        const div = document.createElement('div'),
+        const div = document.createElement('div');
         newPlayer = `
         <h2>Player ${players} - <span>0</span></h2>
         <div id="player-cards">
@@ -31,9 +41,8 @@ export class Game {
     }
 
     pointsCounter = (turn,value) => {
-        const span  = document.querySelectorAll('span');
         this.points[turn] = this.cardCounter(turn,value) + value;
-        span[turn].textContent = this.points[turn];
+        span[turn + 1].textContent = this.points[turn];
     }
 
     startGame = (players) => {
@@ -79,6 +88,30 @@ export class Game {
         this.blackjack(players,this.counter);
         while (points[turn] < points[0] && points[0] <= 21 || points[turn] < 17 && points[0] <= 21 || points[turn] < 17 && points[0] > 21) {
             newCard.addCard(turn);
+        }
+    }
+
+    winner = (points,cash) => {
+        if (points[1] > points[0] && points[1] <= 21 || points[1] <= 21 && points[0] > 21) {
+            alert('The Dealer Wins.');
+            return cash -= 20;
+        } else if (points[1] == points[0]) {
+            alert('Tie');
+        } else {
+            alert('¡You Win!');
+            return cash += 20;
+        }
+    }
+
+    newGame = (players) => {
+        this.points = [];
+        this.counter = [];
+        for(let i = 0; i <= players; i++) {
+            span[i + 1].textContent = 0;
+            addCard[i].innerHTML = '';
+
+            this.points.push(0);
+            this.counter.push([]);
         }
     }
 }
@@ -137,10 +170,11 @@ export class Card {
 
     createCard = (card,turn,down = false) => {
         const img = document.createElement('img');
+        shuffle(backCard);
 
         img.classList.add('cards');
-        (down == true) ? img.src = `./assets/img/grey_back.png` : img.src = `./assets/img/${card}.png`;
-        (down == true) ? img.alt = `Card Grey Back` : img.alt = `Card ${card}`;
+        (down == true) ? img.src = `${backCard[0]}` : img.src = `./assets/img/${card}.png`;
+        (down == true) ? img.alt = `Back Card` : img.alt = `Card ${card}`;
         addCard[turn].append(img);
     }
 
@@ -156,22 +190,3 @@ export class Card {
         startGame.counter[turn][1] = value;
     }
 }
-// Create Number Of Players
-
-// // Start Game
-// let playerNumbers = 3;
-// let turn = 0;
-
-// // Points Counter
-// let playerPoints = [];
-
-// const dealerTurn = () => {
-//         // Flip Card
-//     dealerCards[1].push (downCardValue);
-//     computerPoints = computerPoints + cardValue(downCardValue);
-//     pointCounter[1].innerText = computerPoints;
-
-//     // Create Card
-//     const flipCard = computerCards.querySelector('img');
-//     flipCard.src = `/img/${downCardValue}.png`;        
-// }

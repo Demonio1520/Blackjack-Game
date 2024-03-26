@@ -12,37 +12,32 @@
 
     <header class = "site-header">
         <h1>Blackjack</h1>
-        <p>V-2.4</p>
+        <P>Version</P>
+        <div class="cash">
+            <p><span>0</span>$</p>
+        </div>
     </header>
 
     <div class = "row main">
         <div class = "col text-center">
-            <button id="btn-new" class = "btn btn-danger">New Game</button>
-            <button id="btn-get" class = "btn btn-primary">Get Card</button>
-            <button id="btn-stop" class = "btn btn-primary">Stop</button>
-            <button id="btn-start" class = "btn btn-success">Start</button>
+            <button id="btn-new" class = "btn btn-danger text-uppercase fw-bold">New Game</button>
+            <button id="btn-get" class = "btn btn-primary text-uppercase fw-bold">Get Card</button>
+            <button id="btn-stop" class = "btn btn-primary text-uppercase fw-bold">Stop</button>
+            <button id="btn-start" class = "btn btn-success text-uppercase fw-bold">Start</button>
+            <button id="btn-amount" class = "btn btn-danger text-uppercase fw-bold">X2</button>
         </div>
     </div>
 
     <div id="players" class="row col-12 text-center mt-5">
-        <div class="col-12">
-            <div class="container">
-                <!-- <div class="cash">
-                    <p><span>200</span>$</p>
-                </div> -->
-                <h2>You - <span>0</span></h2>
-            </div>
+        <h2>You - <span>0</span></h2>
 
-            <div id="player-cards">
-            </div>
+        <div id="player-cards">
         </div>
     </div>
 
     <div id="players" class="row col-12 text-center">
-        <div class="col-12">
-            <h2>Dealer - <span>0</span></h2>
-            <div id="player-cards">
-            </div>
+        <h2>Dealer - <span>0</span></h2>
+        <div id="player-cards">
         </div>
     </div>
 

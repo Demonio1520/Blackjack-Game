@@ -1,20 +1,23 @@
-// Blackjack Game V-2.4
+// Blackjack Game V-2.3.8
 import './css/normalize.css';
 import './styles.css';
-import {Game,Card} from './js/functions.js';
+import {update,Game,Card} from './js/functions.js';
 
-export let players = 1, turn = 0;
-export const startGame = new Game(players), newCard = new Card;
-
-// HTML Selectors
 export const addCard = document.querySelectorAll('#player-cards'),
 addPlayer = document.querySelector('#players');
+
+export let version = '2.3.8', players = 1, turn = 0, cash = 200;
+export const startGame = new Game(players), newCard = new Card,
+backCard = ['./assets/img/grey_back.png','./assets/img/red_back.png'];
+
+// HTML Selectors
 const btnStart = document.querySelector('#btn-start'),
 btnGet = document.querySelector('#btn-get'),
 btnStop = document.querySelector('#btn-stop'),
 btnNew = document.querySelector('#btn-new');
 
 // // Events
+update(version);
 btnNew.disabled = true, btnGet.disabled = true;
 btnStop.disabled = true;
 
@@ -41,11 +44,8 @@ btnGet.addEventListener('click', () => {
             } while (turn <= players);
 
             setTimeout (() => {
-                if (startGame.points[1] >= 17 && startGame.points[1] <= 21) {
-                    alert('The Dealer Wins.');
-                } else {
-                    alert('¡You Win!');
-                }
+                cash = startGame.winner(startGame.points,cash);
+                startGame.addCash(cash);
             }, 1000);
         }, 500);
     }
@@ -62,17 +62,16 @@ btnStop.addEventListener('click', () => {
     } while (turn <= players);
 
     setTimeout (() => {
-        if (startGame.points[1] > startGame.points[0] && startGame.points[1] <= 21) {
-            alert('The Dealer Wins.');
-        } else if (startGame.points[1] == startGame.points[0]) {
-            alert('Tie');
-        } else {
-            alert('¡You Win!');
-        }
+        cash = startGame.winner(startGame.points,cash);
+        startGame.addCash(cash);
     }, 1000);
 });
 
 // New Game Button
 btnNew.addEventListener('click', () => {
-    location.reload();
+    startGame.newGame(players);
+    turn = 0;
+
+    btnNew.disabled = true, btnStart.disabled = false,
+    btnGet.disabled = true, btnStop.disabled = true;
 });

@@ -29,6 +29,7 @@ span {
 
 .site-header {
     background-color: var(--black);
+    border-bottom: 2px solid var(--white);
     margin-bottom: 1rem;
     padding: 1.5rem 0;
     text-align: center;
@@ -36,16 +37,14 @@ span {
 .site-header h1 {
     margin: 0;
 }
-.container {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-}
 .cash {
-    border: 2px solid var(--black);
-    display: inline-block;
-    padding: 0 3rem;
+    border-top: 2px solid var(--white);
+    padding-top: 1rem;
     font-size: 2rem;
+}
+#btn-amount {
+    margin-left: 1rem;
+    border: 2px solid var(--white);
 }
 #players {
     text-transform: uppercase;
@@ -60,22 +59,3 @@ span {
     padding: 1rem;
     width: 15rem;
 }
-/* @media (min-width:1000px) {
-    .cards {
-        position: relative;
-        left: 10rem;
-        margin-left: -7rem;
-        padding: 1rem;
-        width: 15rem;
-    }
-}
-@media (max-width:1000px) {
-    .col-4 {
-        flex: 0 0 100%;
-    }
-}
-@media (min-width:1001px) {
-    .col-4 {
-        flex: 0 0 50%;
-    }
-} */
