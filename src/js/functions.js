@@ -97,6 +97,7 @@ export class Game {
             return cash -= 20;
         } else if (points[1] == points[0]) {
             alert('Tie');
+            return cash;
         } else {
             alert('¡You Win!');
             return cash += 20;
