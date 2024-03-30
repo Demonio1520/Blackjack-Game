@@ -1,4 +1,4 @@
-// Blackjack Game V-2.3.8
+// Blackjack Game V-2.4.1
 import './css/normalize.css';
 import './styles.css';
 import {update,Game,Card} from './js/functions.js';
@@ -6,7 +6,7 @@ import {update,Game,Card} from './js/functions.js';
 export const addCard = document.querySelectorAll('#player-cards'),
 addPlayer = document.querySelector('#players');
 
-export let version = '2.3.8', players = 1, turn = 0, cash = 200;
+export let version = '2.4.1', players = 1, turn = 0, cash = 200;
 export const startGame = new Game(players), newCard = new Card,
 backCard = ['./assets/img/grey_back.png','./assets/img/red_back.png'];
 

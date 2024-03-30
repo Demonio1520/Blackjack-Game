@@ -27,6 +27,10 @@ span {
 /* Main-Site */
 /* Site-Header */
 
+.container {
+    margin: 0 auto;
+    max-width: 90%;
+}
 .site-header {
     background-color: var(--black);
     border-bottom: 2px solid var(--white);
@@ -50,11 +54,11 @@ span {
     text-transform: uppercase;
 }
 #player-cards {
-    height: 25rem;
+    min-height: 22rem;
 }
 .cards {
     position: relative;
-    left: 5rem;
+    left: 3.5rem;
     margin-left: -7rem;
     padding: 1rem;
     width: 15rem;
