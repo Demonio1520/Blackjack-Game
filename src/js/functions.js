@@ -1,5 +1,5 @@
 // Let Variables - Const Variables - HTML Selectors
-import {version,players,turn,cash} from '../index.js';
+import {cash,turn,bet} from '../index.js';
 import {startGame,newCard, backCard} from '../index.js';
 import {addPlayer,addCard} from '../index.js';
 
@@ -19,14 +19,14 @@ export function update(version) {
     p[0].innerText = `V-${version}`;
 }
 
+export function addCash(cash = 200) {
+    span[0].innerText = cash;
+}
+
 export class Game {
     constructor(players) {
         this.newGame(players);
-        this.addCash(cash);
-    }
-    
-    addCash = (cash) => {
-        span[0].innerText = cash;
+        addCash(cash);
     }
 
     createPlayers = (players) => {
@@ -55,7 +55,7 @@ export class Game {
             }
         }
 
-        this.blackjack(players,this.counter);
+        this.blackjack(turn,this.counter);
     }
 
     cardCounter = (turn,value) => {
@@ -71,21 +71,19 @@ export class Game {
         return amount;
     }
 
-    blackjack = (players,counter) => {
-        for (let i = 0; i <= players; i++) {
-            const blackjack = counter[i][0] + counter[i][1];
-            if (blackjack === 21) {
-                setTimeout(() => {
-                    alert('¡Blackjack!');          
-                }, 1000);
-                break;
-            }
+    blackjack = (turn,counter) => {
+        const blackjack = counter[turn][0] + counter[turn][1];
+        if (blackjack === 21) {
+            setTimeout(() => {
+                alert('¡Blackjack!');          
+            }, 1000);
+            return true;
         }
     }
 
     computerTurn = (turn,points) => {
         newCard.flipCard(turn);
-        this.blackjack(players,this.counter);
+        this.blackjack(turn,this.counter);
         while (points[turn] < points[0] && points[0] <= 21 || points[turn] < 17 && points[0] <= 21 || points[turn] < 17 && points[0] > 21) {
             newCard.addCard(turn);
         }
@@ -94,13 +92,14 @@ export class Game {
     winner = (points,cash) => {
         if (points[1] > points[0] && points[1] <= 21 || points[1] <= 21 && points[0] > 21) {
             alert('The Dealer Wins.');
-            return cash -= 20;
+            return cash - (10 * bet);
         } else if (points[1] == points[0]) {
             alert('Tie');
             return cash;
         } else {
             alert('¡You Win!');
-            return cash += 20;
+            if (this.blackjack(0,this.counter) == true) { return cash + (15 * bet) }
+            else { return cash + (10 * bet); }  
         }
     }
 
@@ -114,6 +113,14 @@ export class Game {
             this.points.push(0);
             this.counter.push([]);
         }
+    }
+
+    saveData = (cash) => {
+        localStorage.setItem('cash', cash);
+    }
+
+    loadData = () => {
+        return localStorage.getItem('cash');
     }
 }
 
